@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autobiografia</title>
+    <style>
+        /* BODY */
+      body {
+          font-family: 'Roboto', 'Segoe UI', sans-serif;
+          background: linear-gradient(135deg, #a4c48c, #d7e6d1, #ffffff); /* efecto difuminado verde-blanco */
+          margin: 0;
+          padding: 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          min-height: 100vh;
+      }
+
+      /* CONTENEDOR (TARJETA) */
+      .contenedor {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 20px;
+      }
+
+      .tarjeta {
+          background: #ffffff; /* fondo blanco elegante */
+          padding: 50px 45px;
+          border-radius: 25px;
+          width: 520px;
+          box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
+          animation: aparecer 0.8s ease-in-out;
+          transition: transform 0.3s, box-shadow 0.3s;
+      }
+
+      .tarjeta:hover {
+          transform: translateY(-6px);
+          box-shadow: 0 35px 80px rgba(0,0,0,0.25);
+      }
+
+      /* TITULO */
+      .titulo {
+          text-align: center;
+          color: #556b2f; /* verde elegante */
+          margin-bottom: 45px;
+          padding: 15px 20px;
+          border-radius: 15px;
+          font-size: 36px;
+          font-weight: 900;
+          font-family: 'Playfair Display', 'Montserrat', serif; /* fuente elegante */
+          letter-spacing: 2px;
+          text-shadow: 1px 1px 5px rgba(0,0,0,0.1);
+          background: linear-gradient(90deg, #b0d58f, #8aa16f); /* degradado del título */
+      }
+
+      /* BLOQUES DE DATOS */
+      .datos {
+          margin-bottom: 30px;
+          padding: 22px 28px;
+          border-radius: 18px;
+          background: #f7faf2; /* verde muy suave */
+          border-left: 6px solid #8aa16f;
+          transition: all 0.3s ease;
+          font-size: 18px;
+          font-family: 'Lora', 'Roboto', serif; /* fuente elegante para la info */
+          color: #2f4f2f;
+      }
+
+      .datos:hover {
+          background: #eaf3e3;
+          box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      }
+
+      /* SUBTITULOS DE SECCION */
+      .subtitulo {
+          font-weight: 700;
+          color: #4f7d3a;
+          margin-bottom: 14px;
+          font-size: 22px;
+          text-transform: uppercase;
+          letter-spacing: 1.2px;
+          font-family: 'Playfair Display', serif;
+      }
+
+      /* ETIQUETAS */
+      .etiqueta {
+          font-weight: 600;
+          color: #476b3b;
+          width: 130px;
+          font-size: 16px;
+      }
+
+      /* VALORES */
+      .valor {
+          color: #2f4f2f;
+          font-size: 18px;
+          font-family: 'Lora', serif;
+      }
+
+      /* MARGEN ENTRE NOMBRES Y APELLIDOS */
+      .Nombre, .Apellido {
+          margin-bottom: 16px;
+      }
+
+      /* ANIMACION */
+      @keyframes aparecer {
+          from {
+              opacity: 0;
+              transform: translateY(30px);
+          }
+          to {
+              opacity: 1;
+              transform: translateY(0);
+          }
+      }
+
+      /* ICONOS OPCIONALES ANTES DE CADA BLOQUE */
+      .datos::before {
+          content: "➤";
+          color: #8aa16f;
+          margin-right: 10px;
+      }
+    </style>
+
+</head>
+<body>
+<div class="contenedor">
+    <div class="tarjeta">
+        <h1 class="titulo">Autobiografia</h1>
+
+        <!--Datos personales-->
+        <div class="datos">
+            <p class="subtitulo">Datos personales</p>
+
+            <div class="Nombre">
+                <span class="etiqueta">Nombre:</span>
+                <span class="valor" th:text="${Nombre}"></span>
+            </div>
+
+            <div class="Apellido">
+                <span class="etiqueta">Apellido:</span>
+                <span class="valor" th:text="${Apellido}"></span>
+            </div>
+
+            <div class="Edad">
+                <span class="etiqueta">Edad:</span>
+                <span class="valor" th:text="${Edad}"></span>
+            </div>
+
+        </div>
+
+        <!--Infancia-->
+        <div class="datos">
+            <p class="subtitulo">Infancia</p>
+            <span class="etiqueta">Infancia:</span>
+            <span class="valor" th:text="${Infancia}"></span>
+        </div>
+
+        <!--Situación actual-->
+        <div class="datos">
+            <p class="subtitulo">Actualidad</p>
+            <span class="etiqueta">Actualidad:</span>
+            <span class="valor" th:text="${Actualidad}"></span>
+        </div>
+
+        <!--Metas-->
+        <div class="datos">
+            <p class="subtitulo">Metas</p>
+            <span class="etiqueta">Nombre</span>
+            <span class="valor" th:text="${Nombre}"></span>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>
