@@ -1,178 +1,234 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Autobiografia</title>
+    <title>Autobiografía - Zoom Máximo</title>
+
     <style>
-        /* BODY */
-      body {
-          font-family: 'Roboto', 'Segoe UI', sans-serif;
-          background: linear-gradient(135deg, #a4c48c, #d7e6d1, #ffffff); /* efecto difuminado verde-blanco */
-          margin: 0;
-          padding: 0;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          min-height: 100vh;
-      }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-      /* CONTENEDOR (TARJETA) */
-      .contenedor {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          padding: 20px;
-      }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #7aa06d, #8aa16f, #d3ffb0);
+            padding: 60px 30px; /* Más espacio exterior */
+        }
 
-      .tarjeta {
-          background: #ffffff; /* fondo blanco elegante */
-          padding: 50px 45px;
-          border-radius: 25px;
-          width: 520px;
-          box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
-          animation: aparecer 0.8s ease-in-out;
-          transition: transform 0.3s, box-shadow 0.3s;
-      }
+        /* CONTENEDOR EXTRA ANCHO PARA EFECTO ZOOM MÁXIMO */
+        .contenedor {
+            width: 100%;
+            max-width: 1100px; /* Aumentado a 1100px para llenar la pantalla */
+        }
 
-      .tarjeta:hover {
-          transform: translateY(-6px);
-          box-shadow: 0 35px 80px rgba(0,0,0,0.25);
-      }
+        /* TARJETA GIGANTE */
+        .tarjeta {
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(15px);
+            border-radius: 40px;
+            box-shadow: 0 40px 90px rgba(0, 0, 0, 0.35);
+            padding: 80px 70px; /* Padding masivo para efecto de cercanía */
+            animation: aparecer 0.8s ease-out;
+            border: 1px solid rgba(138, 161, 111, 0.4);
+        }
 
-      /* TITULO */
-      .titulo {
-          text-align: center;
-          color: #556b2f; /* verde elegante */
-          margin-bottom: 45px;
-          padding: 15px 20px;
-          border-radius: 15px;
-          font-size: 36px;
-          font-weight: 900;
-          font-family: 'Playfair Display', 'Montserrat', serif; /* fuente elegante */
-          letter-spacing: 2px;
-          text-shadow: 1px 1px 5px rgba(0,0,0,0.1);
-          background: linear-gradient(90deg, #b0d58f, #8aa16f); /* degradado del título */
-      }
+        @keyframes aparecer {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
 
-      /* BLOQUES DE DATOS */
-      .datos {
-          margin-bottom: 30px;
-          padding: 22px 28px;
-          border-radius: 18px;
-          background: #f7faf2; /* verde muy suave */
-          border-left: 6px solid #8aa16f;
-          transition: all 0.3s ease;
-          font-size: 18px;
-          font-family: 'Lora', 'Roboto', serif; /* fuente elegante para la info */
-          color: #2f4f2f;
-      }
+        /* TÍTULO ENORME */
+        .titulo {
+            font-size: 64px; /* Tamaño masivo */
+            color: #2f4f2f;
+            margin-bottom: 60px;
+            font-weight: 900;
+            letter-spacing: -1px;
+            text-align: center;
+        }
 
-      .datos:hover {
-          background: #eaf3e3;
-          box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-      }
+        /* BLOQUES DE DATOS AMPLIADOS */
+        .seccion-datos {
+            background: #f6faf4;
+            border: 2px solid #cfe3c6;
+            border-radius: 30px;
+            padding: 50px 55px; /* Más aire interno */
+            text-align: left;
+            margin-bottom: 40px;
+            transition: all 0.3s ease;
+        }
 
-      /* SUBTITULOS DE SECCION */
-      .subtitulo {
-          font-weight: 700;
-          color: #4f7d3a;
-          margin-bottom: 14px;
-          font-size: 22px;
-          text-transform: uppercase;
-          letter-spacing: 1.2px;
-          font-family: 'Playfair Display', serif;
-      }
+        .seccion-datos:hover {
+            transform: translateY(-5px);
+            background: #ffffff;
+            box-shadow: 0 15px 40px rgba(138, 161, 111, 0.2);
+        }
 
-      /* ETIQUETAS */
-      .etiqueta {
-          font-weight: 600;
-          color: #476b3b;
-          width: 130px;
-          font-size: 16px;
-      }
+        .seccion-datos-con-foto {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 60px;
+        }
 
-      /* VALORES */
-      .valor {
-          color: #2f4f2f;
-          font-size: 18px;
-          font-family: 'Lora', serif;
-      }
+        .datos-personales-texto {
+            flex: 1;
+        }
 
-      /* MARGEN ENTRE NOMBRES Y APELLIDOS */
-      .Nombre, .Apellido {
-          margin-bottom: 16px;
-      }
+        /* ESTRUCTURA FOTO EN ESCALA GRANDE */
+        .dato {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
 
-      /* ANIMACION */
-      @keyframes aparecer {
-          from {
-              opacity: 0;
-              transform: translateY(30px);
-          }
-          to {
-              opacity: 1;
-              transform: translateY(0);
-          }
-      }
+        .galeria-gried {
+            width: 280px; /* Foto mucho más grande */
+            height: 280px;
+            border-radius: 25px;
+            overflow: hidden;
+            border: 6px solid #8aa16f;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+        }
 
-      /* ICONOS OPCIONALES ANTES DE CADA BLOQUE */
-      .datos::before {
-          content: "➤";
-          color: #8aa16f;
-          margin-right: 10px;
-      }
+        .imagen {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* TEXTOS ESCALADOS (SIMULANDO ZOOM 200%) */
+        .subtitulo {
+            display: block;
+            font-size: 24px;
+            color: #2f4f2f;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 800;
+            border-bottom: 4px solid #8aa16f;
+            padding-bottom: 10px;
+            width: fit-content;
+        }
+
+        .fila-dato {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .etiqueta {
+            font-weight: 700;
+            color: #4a7c59;
+            font-size: 28px; /* Texto muy grande */
+            min-width: 130px;
+        }
+
+        .valor {
+            font-size: 28px; /* Texto muy grande */
+            color: #2f4f2f;
+            line-height: 1.4;
+        }
+
+        /* CUERPO DE TEXTO DE INFANCIA/ACTUALIDAD */
+        p.valor {
+            font-size: 26px;
+            line-height: 1.7;
+            color: #3e5c3e;
+        }
+
+        /* BOTÓN DE ACCIÓN GIGANTE */
+        .acciones {
+            margin-top: 60px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .boton {
+            display: block;
+            width: 50%;
+            padding: 25px 40px;
+            border-radius: 22px;
+            text-decoration: none;
+            text-align: center;
+            background: linear-gradient(135deg, #4b5563, #111827);
+            color: white;
+            font-size: 26px;
+            font-weight: 800;
+            transition: all 0.3s ease;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+        }
+
+        .boton:hover {
+            transform: scale(1.05);
+            filter: brightness(1.2);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .seccion-datos-con-foto { flex-direction: column; text-align: center; }
+            .titulo { font-size: 45px; }
+            .tarjeta { padding: 40px 30px; }
+            .galeria-gried { width: 220px; height: 220px; }
+        }
     </style>
-
 </head>
 <body>
+
 <div class="contenedor">
     <div class="tarjeta">
-        <h1 class="titulo">Autobiografia</h1>
+        <h1 class="titulo">Autobiografía</h1>
 
-        <!--Datos personales-->
-        <div class="datos">
-            <p class="subtitulo">Datos personales</p>
-
-            <div class="Nombre">
-                <span class="etiqueta">Nombre:</span>
-                <span class="valor" th:text="${Nombre}"></span>
+        <div class="seccion-datos seccion-datos-con-foto">
+            <div class="datos-personales-texto">
+                <span class="subtitulo">Datos personales</span>
+                <div class="fila-dato">
+                    <span class="etiqueta">Nombre:</span>
+                    <span class="valor" th:text="${Nombre}">Jefferson Geovanny</span>
+                </div>
+                <div class="fila-dato">
+                    <span class="etiqueta">Apellido:</span>
+                    <span class="valor" th:text="${Apellido}">Juárez Ruano</span>
+                </div>
+                <div class="fila-dato">
+                    <span class="etiqueta">Edad:</span>
+                    <span class="valor" th:text="${Edad}">16</span>
+                </div>
             </div>
 
-            <div class="Apellido">
-                <span class="etiqueta">Apellido:</span>
-                <span class="valor" th:text="${Apellido}"></span>
+            <div class="dato">
+                <span class="etiqueta">Yo</span>
+                <div class="galeria-gried">
+                    <img class="imagen" th:src="@{/multimedia/foto.jpeg}" alt="yo">
+                </div>
             </div>
-
-            <div class="Edad">
-                <span class="etiqueta">Edad:</span>
-                <span class="valor" th:text="${Edad}"></span>
-            </div>
-
         </div>
 
-        <!--Infancia-->
-        <div class="datos">
-            <p class="subtitulo">Infancia</p>
-            <span class="etiqueta">Infancia:</span>
-            <span class="valor" th:text="${Infancia}"></span>
+        <div class="seccion-datos">
+            <span class="subtitulo">Infancia</span>
+            <p class="valor" th:text="${Infancia}">Nací en la ciudad de guatemala y viví la mayoría de mi vida en z24, crecí en una familia de 4: padre, madre y hermana. Desde pequeño crecí jugando videojuegos y mi papa trabajaba en I.T lo q hizo q siempre me llamara la atencion la tecnologia/computadoras.</p>
         </div>
 
-        <!--Situación actual-->
-        <div class="datos">
-            <p class="subtitulo">Actualidad</p>
-            <span class="etiqueta">Actualidad:</span>
-            <span class="valor" th:text="${Actualidad}"></span>
+        <div class="seccion-datos">
+            <span class="subtitulo">Actualidad</span>
+            <p class="valor" th:text="${Actualidad}">Soy un Estudiante de kinal de 5to perito en informática. El año siguiente año sera mi ultimo año de carrera, sigo viviendo en z24 :(, me gusta mucho escuchar musica desde que despierto, me gusta ver peliculas y jugar videojuegos en mis tiempos libres, y estoy a menos de un mes de cumplir 17 años.</p>
         </div>
 
-        <!--Metas-->
-        <div class="datos">
-            <p class="subtitulo">Metas</p>
-            <span class="etiqueta">Nombre</span>
-            <span class="valor" th:text="${Nombre}"></span>
+        <div class="acciones">
+            <a class="boton" th:href="@{/home}">Volver al Inicio</a>
         </div>
-
     </div>
 </div>
+
 </body>
 </html>
