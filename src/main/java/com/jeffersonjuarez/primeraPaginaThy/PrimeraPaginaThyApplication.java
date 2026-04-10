@@ -1,4 +1,4 @@
-package com.alejandromax.primeraPaginaThy;
+package com.jeffersonjuarez.primeraPaginaThy;
 
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
