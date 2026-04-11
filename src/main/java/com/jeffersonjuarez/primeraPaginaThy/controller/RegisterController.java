@@ -2,6 +2,8 @@ package com.jeffersonjuarez.primeraPaginaThy.controller;
 
 import com.jeffersonjuarez.primeraPaginaThy.dto.RegisterDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.stereotype.Controller;
@@ -22,10 +24,21 @@ public class RegisterController {
     public String register(){return "register";}
 
     @PostMapping("/register")
-    public String signup (@ModelAttribute RegisterDto registerDto){
-        if (inMemoryUserDetailsManager.userExists(registerDto.getUsername())){
+    public String signup (@ModelAttribute RegisterDto register){
 
+        //verifica si ese usuario ya existe
+        if (inMemoryUserDetailsManager.userExists(register.getUsername())){
+            return "redirect:/register?usernameExist";
         }
+        //crea el usuario
+        UserDetails user= User.builder()
+                .username(register.getUsername())
+                .password(passwordEncoder.encode(register.getPassword()))
+                .roles("admin")
+                .build();
+
+        inMemoryUserDetailsManager.createUser(user);
+        return "redirect:/login";
 
     }
 

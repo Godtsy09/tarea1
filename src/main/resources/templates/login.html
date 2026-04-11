@@ -22,7 +22,7 @@
             padding: 20px;
         }
 
-        /* CONTENEDOR */
+        /* CONTENEDOR ESTÁNDAR */
         .contenedor {
             width: 100%;
             max-width: 420px;
@@ -40,28 +40,18 @@
             border: 1px solid rgba(138, 161, 111, 0.25);
         }
 
-        /* ANIMACION */
         @keyframes aparecer {
-            from {
-                opacity: 0;
-                transform: translateY(25px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(25px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* TITULO */
         .titulo {
             font-size: 32px;
             color: #2f4f2f;
             margin-bottom: 8px;
             font-weight: 800;
-            letter-spacing: 1px;
         }
 
-        /* SUBTITULO */
         .subtitulo {
             font-size: 15px;
             color: #5c6b5c;
@@ -75,30 +65,16 @@
             border-radius: 12px;
             font-size: 14px;
             font-weight: 500;
-            text-align: center;
         }
 
-        /* ERROR */
-        .error {
-            background: #fde8e8;
-            color: #8b2c2c;
-            border: 1px solid #f5c2c2;
-        }
+        .error { background: #fde8e8; color: #8b2c2c; border: 1px solid #f5c2c2; }
+        .success { background: #e7f7ec; color: #1f6b3a; border: 1px solid #bde5c7; }
 
-        /* SUCCESS */
-        .success {
-            background: #e7f7ec;
-            color: #1f6b3a;
-            border: 1px solid #bde5c7;
-        }
-
-        /* CAMPOS */
         .campo {
             margin-bottom: 18px;
             text-align: left;
         }
 
-        /* LABELS */
         .campo label {
             display: block;
             font-size: 12px;
@@ -109,7 +85,6 @@
             font-weight: 700;
         }
 
-        /* INPUTS */
         .campo input {
             width: 100%;
             padding: 14px 16px;
@@ -121,39 +96,47 @@
             transition: all 0.25s ease;
         }
 
-        /* FOCUS INPUT */
         .campo input:focus {
             border-color: #8aa16f;
             background: #ffffff;
             box-shadow: 0 0 0 4px rgba(138, 161, 111, 0.15);
         }
 
-        /* BOTON INGRESAR ACTUALIZADO (Mismo color que logout) */
+        /* BOTON ACTUALIZADO */
         .boton {
             width: 100%;
             padding: 14px 20px;
             border: none;
             border-radius: 14px;
-            /* Gradiente gris oscuro del botón de cerrar sesión */
             background: linear-gradient(135deg, #6b7280, #374151);
             color: white;
             font-size: 16px;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.25s ease;
-            /* Sombra ajustada al nuevo tono */
             box-shadow: 0 10px 25px rgba(55, 65, 81, 0.25);
         }
 
-        /* HOVER BOTON */
         .boton:hover {
             transform: translateY(-3px);
             box-shadow: 0 15px 30px rgba(55, 65, 81, 0.35);
         }
 
-        /* ACTIVE */
-        .boton:active {
-            transform: scale(0.98);
+        /* SECCIÓN DE REGISTRO */
+        .registro-link {
+            margin-top: 25px;
+            font-size: 14px;
+            color: #5c6b5c;
+        }
+
+        .registro-link a {
+            color: #4a7c59;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .registro-link a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -172,19 +155,27 @@
             Sesión cerrada correctamente
         </div>
 
+        <div th:if="${param.success}" class="mensaje success">
+            ¡Registro exitoso! Ya puedes ingresar
+        </div>
+
         <form th:action="@{/login}" method="post">
             <div class="campo">
                 <label for="username">Usuario</label>
-                <input type="text" id="username" name="username" placeholder="Ingrese su usuario" required>
+                <input type="text" id="username" name="username" placeholder="Tu usuario" required>
             </div>
 
             <div class="campo">
                 <label for="password">Contraseña</label>
-                <input type="password" id="password" name="password" placeholder="Ingrese su contraseña" required>
+                <input type="password" id="password" name="password" placeholder="Tu contraseña" required>
             </div>
 
             <button type="submit" class="boton">Ingresar</button>
         </form>
+
+        <div class="registro-link">
+            ¿No tienes cuenta? <a th:href="@{/register}">Regístrate aquí</a>
+        </div>
     </div>
 </div>
 
